@@ -21,20 +21,19 @@ class LoginForm extends React.Component {
 
     handleSubmit = (values) => {
         // let history = useHistory();
-        console.log("before values--", values);
         values.email = "eve.holt@reqres.in";
         values.password = "cityslicka";
-        console.log("after values--", values);
-        // history.push("/about");
-        // axios.post("https://reqres.in/api/login",{...values})
-        //     .then((res)=>{
-        //          localStorage.setItem('userToken', res.data.token);
-        //          alert.show('User login successfully!')
-        //          Navigate("/");
-        //     })
-        //     .catch((e)=>{
-        //         return e;
-        //     })
+        // Please enter input values- email = "eve.holt@reqres.in" / password = "cityslicka";
+
+        axios.post("https://reqres.in/api/login",{...values})
+            .then((res)=>{
+                 localStorage.setItem('userToken', res.data.token);
+                 alert.show('User login successfully!')
+                 // navigate to homepage
+            })
+            .catch((e)=>{
+                return e;
+            })
     };
 
     render() {

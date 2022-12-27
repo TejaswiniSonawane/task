@@ -6,9 +6,11 @@ class HomePage extends React.Component {
     state = {  }
     render() {
         return (
-            <>
-                <h1>Home Page</h1>
-            </>
+                    <div style={{display:"flex", height:"100vh"}}>
+                        <h1>
+                            Betacraft Task
+                        </h1>
+                    </div>
         );
     }
 }

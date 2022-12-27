@@ -1,20 +1,14 @@
 import React from 'react';
-import { Outlet, Link } from "react-router-dom";
+import Header from "./HeaderFun";
+import Footer from "./FooterFun";
+import HomePage from "./HomePage";
 class Layout extends React.Component {
     render() {
         return (
             <>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About</Link>
-                        </li>
-                    </ul>
-                </nav>
-                <Outlet />
+                <Header/>
+                <HomePage />
+                <Footer/>
             </>
         );
     }
