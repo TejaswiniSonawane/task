@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "./loginFormStyle.css";
 import axios from "axios";
-// import { useHistory } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 
 const loginSchema = Yup.object().shape({
@@ -16,22 +16,25 @@ const loginSchema = Yup.object().shape({
 });
 
 class LoginForm extends React.Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {user: false};
+    }
 
 
     handleSubmit = (values) => {
-        // let history = useHistory();
-        values.email = "eve.holt@reqres.in";
-        values.password = "cityslicka";
+        // values.email = "eve.holt@reqres.in";
+        // values.password = "cityslicka";
         // Please enter input values- email = "eve.holt@reqres.in" / password = "cityslicka";
 
         axios.post("https://reqres.in/api/login",{...values})
             .then((res)=>{
                  localStorage.setItem('userToken', res.data.token);
                  alert.show('User login successfully!')
-                 // navigate to homepage
+                 this.setState({user:true})
             })
             .catch((e)=>{
+                alert.show(e.message());
                 return e;
             })
     };
@@ -40,6 +43,10 @@ class LoginForm extends React.Component {
         return (
 
             <>
+                {this.state.user && (
+                    <Navigate to="/"/>
+                )}
+
                 <Formik
                     validationSchema={loginSchema}
                     initialValues={{ email: "", password: "" }}

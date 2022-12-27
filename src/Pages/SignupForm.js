@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "./loginFormStyle.css";
 import axios from "axios";
-// import { useHistory } from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
 const signUpSchema = Yup.object({
     firstName: Yup.string()
@@ -30,9 +30,12 @@ const signUpSchema = Yup.object({
 });
 
 class SignupForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {registerUser: false};
+    }
 
     handleSubmit = (values) => {
-        // let history = useHistory();
         // Please give input value- "email": "eve.holt@reqres.in", "password": "pistol"
         let formValues= {
             "email": values.email,
@@ -54,6 +57,7 @@ class SignupForm extends React.Component {
                  localStorage.setItem('userToken', res.data.token);
                  alert.show('User register successfully!')
                 // navigate to login form
+                this.setState({registerUser:true });
             })
             .catch((e)=>{
                 return e;
@@ -64,6 +68,10 @@ class SignupForm extends React.Component {
         return (
 
             <>
+                {this.state.registerUser && (
+                    <Navigate to="/login"/>
+                )}
+
                 <Formik
                     validationSchema={signUpSchema}
                     initialValues={{ firstName: '',
